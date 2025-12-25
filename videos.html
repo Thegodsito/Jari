@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Videos Especiales - Jari ✨</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;600;700&family=Dancing+Script:wght@700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Quicksand', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+            color: #333;
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+            padding: 20px;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Estrellas flotantes */
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .star {
+            position: absolute;
+            background: white;
+            width: 3px;
+            height: 3px;
+            border-radius: 50%;
+            animation: twinkle 3s ease-in-out infinite;
+            opacity: 0;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.5); }
+        }
+
+        .container {
+            position: relative;
+            z-index: 2;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 50px 30px;
+            border-radius: 25px;
+            margin-bottom: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            animation: fadeInDown 1s ease;
+            text-align: center;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h1 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 3em;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 15px;
+        }
+
+        header p {
+            font-size: 1.3em;
+            color: #666;
+            font-weight: 300;
+        }
+
+        /* Galería de videos mejorada */
+        .videos {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+            animation: fadeInUp 1s ease;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .video-container {
+            position: relative;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .video-container:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 20px 50px rgba(102, 126, 234, 0.5);
+        }
+
+        .video-wrapper {
+            position: relative;
+            padding-bottom: 56.25%; /* Ratio 16:9 */
+            height: 0;
+            overflow: hidden;
+        }
+
+        .video-wrapper video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .video-info {
+            padding: 20px;
+            text-align: center;
+        }
+
+        .video-info h3 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.5em;
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+
+        .video-info p {
+            color: #666;
+            font-size: 1em;
+            line-height: 1.6;
+        }
+
+        /* Icono de play personalizado */
+        .play-icon {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80px;
+            height: 80px;
+            background: rgba(102, 126, 234, 0.9);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 10;
+        }
+
+        .play-icon:hover {
+            background: rgba(118, 75, 162, 0.9);
+            transform: translate(-50%, -50%) scale(1.1);
+        }
+
+        .play-icon::after {
+            content: '';
+            width: 0;
+            height: 0;
+            border-left: 25px solid white;
+            border-top: 15px solid transparent;
+            border-bottom: 15px solid transparent;
+            margin-left: 5px;
+        }
+
+        .play-icon.playing::after {
+            border-left: none;
+            width: 8px;
+            height: 30px;
+            background: white;
+            box-shadow: 12px 0 0 white;
+            border: none;
+            margin-left: 0;
+        }
+
+        /* Modal de video a pantalla completa */
+        .video-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .video-modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            max-width: 90%;
+            max-height: 90%;
+            position: relative;
+        }
+
+        .modal-content video {
+            max-width: 100%;
+            max-height: 90vh;
+            border-radius: 15px;
+            box-shadow: 0 0 50px rgba(255, 255, 255, 0.3);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: -50px;
+            right: 0;
+            color: white;
+            font-size: 40px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .modal-close:hover {
+            transform: scale(1.2) rotate(90deg);
+        }
+
+        /* Botón volver */
+        .volver {
+            text-align: center;
+            margin: 50px 0;
+            animation: fadeIn 1.5s ease;
+        }
+
+        .boton {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 20px 40px;
+            text-decoration: none;
+            border-radius: 50px;
+            font-size: 1.2em;
+            font-weight: 600;
+            transition: all 0.4s ease;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+            display: inline-block;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .boton::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.2);
+            transition: left 0.5s ease;
+        }
+
+        .boton:hover::before {
+            left: 100%;
+        }
+
+        .boton:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.6);
+        }
+
+        /* Mensaje si no hay videos */
+        .no-videos {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 60px 40px;
+            border-radius: 25px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .no-videos h2 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.5em;
+            color: #667eea;
+            margin-bottom: 20px;
+        }
+
+        .no-videos p {
+            font-size: 1.2em;
+            color: #666;
+            line-height: 1.8;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.2em;
+            }
+
+            header p {
+                font-size: 1.1em;
+            }
+
+            .videos {
+                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+                gap: 20px;
+            }
+
+            .play-icon {
+                width: 60px;
+                height: 60px;
+            }
+
+            .play-icon::after {
+                border-left: 20px solid white;
+                border-top: 12px solid transparent;
+                border-bottom: 12px solid transparent;
+            }
+
+            .boton {
+                padding: 15px 30px;
+                font-size: 1.1em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="stars" id="stars"></div>
+    
+    <div class="container">
+        <header>
+            <h1>🎥 Videos Especiales 🎥</h1>
+            <p>Momentos inolvidables que compartimos juntos</p>
+        </header>
+
+        <div class="videos" id="videos">
+            <!-- Los videos se generarán automáticamente con JavaScript -->
+        </div>
+
+        <!-- Mensaje si no hay videos -->
+        <div class="no-videos" id="noVideos" style="display: none;">
+            <h2>✨ Próximamente ✨</h2>
+            <p>Esta sección se llenará pronto con los momentos divertidos que capturemos juntos.</p>
+            <p style="margin-top: 15px;">Cada risa, cada aventura, cada instante contigo será un recuerdo en movimiento. 🎬💜</p>
+        </div>
+
+        <div class="volver">
+            <a href="index.html" class="boton">← Volver al Inicio</a>
+        </div>
+    </div>
+
+    <!-- Modal para video a pantalla completa -->
+    <div class="video-modal" id="videoModal">
+        <span class="modal-close" onclick="closeModal()">×</span>
+        <div class="modal-content">
+            <video id="modal-video" controls></video>
+        </div>
+    </div>
+
+    <script>
+        // Crear estrellas animadas
+        const starsContainer = document.getElementById('stars');
+        const numberOfStars = 50;
+
+        for (let i = 0; i < numberOfStars; i++) {
+            const star = document.createElement('div');
+            star.className = 'star';
+            star.style.left = Math.random() * 100 + '%';
+            star.style.top = Math.random() * 100 + '%';
+            star.style.animationDelay = Math.random() * 3 + 's';
+            starsContainer.appendChild(star);
+        }
+
+        // Configuración de videos
+        const videosData = [
+            { src: 'videos/video1.mp4', title: 'Momento Mágico 1', desc: 'Una aventura inolvidable ✨' },
+            { src: 'videos/video2.mp4', title: 'Momento Mágico 2', desc: 'Risas y diversión 😄' },
+            { src: 'videos/video3.mp4', title: 'Momento Mágico 3', desc: 'Recuerdos en movimiento 🎬' },
+            { src: 'videos/video4.mp4', title: 'Momento Mágico 4', desc: 'Instantes especiales 💫' }
+        ];
+
+        const videosContainer = document.getElementById('videos');
+        const noVideos = document.getElementById('noVideos');
+        let videosExistentes = [];
+        let videosChecked = 0;
+
+        // Función para verificar si un video existe
+        function videoExists(url, callback) {
+            const video = document.createElement('video');
+            video.onloadedmetadata = () => callback(true);
+            video.onerror = () => callback(false);
+            video.src = url;
+        }
+
+        // Generar galería de videos
+        videosData.forEach((video, index) => {
+            videoExists(video.src, (exists) => {
+                videosChecked++;
+                if (exists) {
+                    videosExistentes.push({ ...video, index });
+                }
+                
+                // Cuando todos los videos han sido verificados
+                if (videosChecked === videosData.length) {
+                    if (videosExistentes.length > 0) {
+                        videosExistentes.forEach((video, idx) => {
+                            const container = document.createElement('div');
+                            container.className = 'video-container';
+                            
+                            container.innerHTML = `
+                                <div class="video-wrapper">
+                                    <video id="video-${idx}" preload="metadata">
+                                        <source src="${video.src}" type="video/mp4">
+                                        Tu navegador no soporta el elemento de video.
+                                    </video>
+                                    <div class="play-icon" onclick="toggleVideo(${idx})"></div>
+                                </div>
+                                <div class="video-info">
+                                    <h3>${video.title}</h3>
+                                    <p>${video.desc}</p>
+                                </div>
+                            `;
+                            
+                            videosContainer.appendChild(container);
+                        });
+
+                        // Agregar doble clic para pantalla completa
+                        videosExistentes.forEach((video, idx) => {
+                            const videoElement = document.getElementById(`video-${idx}`);
+                            videoElement.addEventListener('dblclick', () => openModal(idx));
+                        });
+                    } else {
+                        // Si no hay videos, mostrar mensaje
+                        videosContainer.style.display = 'none';
+                        noVideos.style.display = 'block';
+                    }
+                }
+            });
+        });
+
+        // Función para reproducir/pausar video
+        function toggleVideo(index) {
+            const video = document.getElementById(`video-${index}`);
+            const playIcon = video.parentElement.querySelector('.play-icon');
+            
+            if (video.paused) {
+                video.play();
+                playIcon.classList.add('playing');
+            } else {
+                video.pause();
+                playIcon.classList.remove('playing');
+            }
+        }
+
+        // Actualizar icono de play cuando el video termina
+        videosExistentes.forEach((video, idx) => {
+            setTimeout(() => {
+                const videoElement = document.getElementById(`video-${idx}`);
+                if (videoElement) {
+                    videoElement.addEventListener('ended', () => {
+                        const playIcon = videoElement.parentElement.querySelector('.play-icon');
+                        playIcon.classList.remove('playing');
+                    });
+                }
+            }, 500);
+        });
+
+        // Funciones del modal
+        function openModal(index) {
+            const video = document.getElementById(`video-${index}`);
+            const modalVideo = document.getElementById('modal-video');
+            const modal = document.getElementById('videoModal');
+            
+            modalVideo.src = video.src;
+            modal.classList.add('active');
+            modalVideo.play();
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            const modalVideo = document.getElementById('modal-video');
+            const modal = document.getElementById('videoModal');
+            
+            modalVideo.pause();
+            modalVideo.src = '';
+            modal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Cerrar modal con tecla Escape
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeModal();
+            }
+        });
+
+        // Cerrar modal al hacer clic fuera del video
+        document.getElementById('videoModal').addEventListener('click', (e) => {
+            if (e.target.id === 'videoModal') {
+                closeModal();
+            }
+        });
+    </script>
+</body>
+</html>
