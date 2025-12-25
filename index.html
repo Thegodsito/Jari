@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para Jari ✨</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;600;700&family=Dancing+Script:wght@700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Quicksand', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+            color: #333;
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Estrellas flotantes */
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .star {
+            position: absolute;
+            background: white;
+            width: 3px;
+            height: 3px;
+            border-radius: 50%;
+            animation: twinkle 3s ease-in-out infinite;
+            opacity: 0;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.5); }
+        }
+
+        /* Contenedor principal */
+        .container {
+            position: relative;
+            z-index: 2;
+            padding: 20px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        /* Header mejorado */
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 50px 30px;
+            border-radius: 25px;
+            margin-bottom: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            animation: fadeInDown 1s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: '✨';
+            position: absolute;
+            top: -20px;
+            right: -20px;
+            font-size: 100px;
+            opacity: 0.1;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(10deg); }
+        }
+
+        h1 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 3.5em;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 15px;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        header p {
+            font-size: 1.3em;
+            color: #666;
+            font-weight: 300;
+        }
+
+        /* Secciones mejoradas */
+        section {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 50px 40px;
+            border-radius: 25px;
+            margin-bottom: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            animation: fadeInUp 1s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        section::after {
+            content: '💫';
+            position: absolute;
+            bottom: -10px;
+            left: -10px;
+            font-size: 80px;
+            opacity: 0.05;
+        }
+
+        h2 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.5em;
+            color: #667eea;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        /* Carta mejorada */
+        .carta {
+            font-size: 1.2em;
+            line-height: 2;
+            text-align: left;
+            max-width: 700px;
+            margin: 0 auto;
+            color: #444;
+        }
+
+        .carta p {
+            margin-bottom: 25px;
+            animation: fadeIn 2s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .carta .saludo {
+            font-size: 1.4em;
+            color: #667eea;
+            font-weight: 600;
+        }
+
+        .carta .firma {
+            text-align: right;
+            font-style: italic;
+            color: #764ba2;
+            font-size: 1.3em;
+            margin-top: 40px;
+        }
+
+        /* Corazones flotantes */
+        .heart {
+            color: #ff6b9d;
+            font-size: 1.5em;
+            display: inline-block;
+            animation: heartbeat 1.5s ease-in-out infinite;
+        }
+
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            25% { transform: scale(1.2); }
+            50% { transform: scale(1); }
+        }
+
+        /* Botones mejorados */
+        .botones {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            margin-top: 30px;
+        }
+
+        .boton {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 20px 40px;
+            text-decoration: none;
+            border-radius: 50px;
+            font-size: 1.2em;
+            font-weight: 600;
+            transition: all 0.4s ease;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .boton::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.2);
+            transition: left 0.5s ease;
+        }
+
+        .boton:hover::before {
+            left: 100%;
+        }
+
+        .boton:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.6);
+        }
+
+        /* Footer mejorado */
+        footer {
+            text-align: center;
+            padding: 30px;
+            color: white;
+            font-size: 1.1em;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            animation: fadeIn 3s ease;
+        }
+
+        footer .heart {
+            color: #ff6b9d;
+            font-size: 1.8em;
+        }
+
+        /* Decoración adicional */
+        .sparkle {
+            display: inline-block;
+            animation: sparkle 2s ease-in-out infinite;
+        }
+
+        @keyframes sparkle {
+            0%, 100% { opacity: 1; transform: rotate(0deg) scale(1); }
+            50% { opacity: 0.5; transform: rotate(180deg) scale(1.2); }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5em;
+            }
+            
+            h2 {
+                font-size: 2em;
+            }
+            
+            .carta {
+                font-size: 1.1em;
+            }
+            
+            section {
+                padding: 30px 25px;
+            }
+            
+            .botones {
+                gap: 15px;
+            }
+            
+            .boton {
+                padding: 15px 30px;
+                font-size: 1.1em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="stars" id="stars"></div>
+    
+    <div class="container">
+        <header>
+            <h1><span class="sparkle">✨</span> Para Jari <span class="sparkle">✨</span></h1>
+            <p>Una sorpresa especial hecha con todo el cariño del mundo</p>
+        </header>
+
+        <section id="carta">
+            <h2><span class="heart">💌</span> Una Carta Para Ti <span class="heart">💌</span></h2>
+            <div class="carta">
+                <p class="saludo">Querida Jari,</p>
+                
+                <p>No siempre las mejores cosas en la vida vienen con avisos. A veces, simplemente suceden. Y así fue conocerte a ti: de forma inesperada y maravillosa.</p>
+                
+                <p>Aunque nuestro tiempo juntos puede medirse en días o semanas, la conexión que hemos formado se siente infinita. Es curioso cómo algunas personas llegan a tu vida y, casi sin darte cuenta, se vuelven imprescindibles. Tú eres esa persona para mí.</p>
+                
+                <p>Tu energía ilumina cada momento que compartimos. Tu risa es contagiosa, tu bondad es genuina, y tu forma de ser simplemente me inspira a ser mejor persona cada día. Contigo, las conversaciones fluyen naturalmente, los silencios son cómodos, y cada instante se convierte en un recuerdo especial.</p>
+                
+                <p>Gracias por ser auténtica, por tu amistad sin filtros, por escuchar cuando necesito hablar y por hacerme reír incluso en los días grises. Gracias por aparecer en mi vida y por quedarte, aunque todo haya sido tan reciente.</p>
+                
+                <p>Esta pequeña sorpresa es solo una forma de decirte lo importante que eres para mí y lo feliz que estoy de tenerte como amiga. Que este sea el primero de muchos momentos especiales juntos.</p>
+                
+                <p class="firma">Con todo el cariño del mundo,<br>Santiago <span class="heart">💜</span></p>
+            </div>
+        </section>
+
+        <section id="enlaces">
+            <h2><span class="sparkle">🎁</span> Descubre Más <span class="sparkle">🎁</span></h2>
+            <p style="text-align: center; font-size: 1.1em; color: #666; margin-bottom: 20px;">
+                He preparado algo especial para ti...
+            </p>
+            <div class="botones">
+                <a href="fotos.html" class="boton">📸 Ver Fotos</a>
+                <a href="videos.html" class="boton">🎥 Ver Videos</a>
+            </div>
+        </section>
+
+        <footer>
+            <p>Hecho con <span class="heart">❤️</span> y mucha ilusión para ti</p>
+            <p style="margin-top: 10px; font-size: 0.9em; opacity: 0.9;">
+                ¡Espero que esta sorpresa te haya sacado una sonrisa! <span class="sparkle">✨</span>
+            </p>
+        </footer>
+    </div>
+
+    <script>
+        // Crear estrellas animadas
+        const starsContainer = document.getElementById('stars');
+        const numberOfStars = 50;
+
+        for (let i = 0; i < numberOfStars; i++) {
+            const star = document.createElement('div');
+            star.className = 'star';
+            star.style.left = Math.random() * 100 + '%';
+            star.style.top = Math.random() * 100 + '%';
+            star.style.animationDelay = Math.random() * 3 + 's';
+            starsContainer.appendChild(star);
+        }
+
+        // Animación suave al hacer scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('section').forEach(section => {
+            observer.observe(section);
+        });
+    </script>
+</body>
+</html>
